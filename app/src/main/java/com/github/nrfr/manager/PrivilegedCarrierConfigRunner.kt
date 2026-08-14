@@ -138,7 +138,10 @@ class PrivilegedCarrierConfigInstrumentation : Instrumentation() {
             activityManager.startDelegateShellPermissionIdentity(Os.getuid(), null)
             // On Android 16 the temporary override is the effective path on
             // vendor ROMs that accept the write but do not apply persistence.
-            val persistent = Build.VERSION.SDK_INT < 36
+            // 原代码：
+            // val persistent = Build.VERSION.SDK_INT < 36
+            // 修改为：
+            val persistent = true
             overrideCarrierConfig(subId, bundle, persistent)
         } catch (e: SecurityException) {
             overrideCarrierConfig(subId, bundle, persistent = false)
