@@ -140,7 +140,11 @@ object CarrierConfigManager {
         try {
             // Android 16 accepts the temporary override path on affected ROMs,
             // while persistent=true may be silently ignored or rejected later.
-            val persistent = Build.VERSION.SDK_INT < 36
+            // 原代码：
+            // val persistent = Build.VERSION.SDK_INT < 36
+            // 修改为：
+            val persistent = true
+
             carrierConfigLoader.overrideConfig(subId, bundle, persistent)
             return false
         } catch (e: SecurityException) {
