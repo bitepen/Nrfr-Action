@@ -79,7 +79,7 @@ object PrivilegedCarrierConfigRunner {
     }
 
     private fun runShellCommand(command: Array<String>): String {
-        val process = newShizukuProcess(command)
+        val process: java.lang.Process = newShizukuProcess(command)
         val stdout = StringBuilder()
         val stderr = StringBuilder()
         val stdoutThread = readAsync(process.inputStream, stdout)
@@ -94,7 +94,7 @@ object PrivilegedCarrierConfigRunner {
         return stdout.toString()
     }
 
-    private fun newShizukuProcess(command: Array<String>): Process {
+    private fun newShizukuProcess(command: Array<String>): java.lang.Process {
         val newProcess = Shizuku::class.java.getDeclaredMethod(
             "newProcess",
             Array<String>::class.java,
@@ -102,7 +102,7 @@ object PrivilegedCarrierConfigRunner {
             String::class.java
         )
         newProcess.isAccessible = true
-        return newProcess.invoke(null, command, null, null) as Process
+        return newProcess.invoke(null, command, null, null) as java.lang.Process
     }
 
     private fun readAsync(inputStream: InputStream, output: StringBuilder): Thread {
